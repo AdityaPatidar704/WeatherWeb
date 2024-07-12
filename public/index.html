@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Web</title>
+    <link rel="shortcut icon" href="../images/cloudy.ico">
+    <link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/js/bootstrap.bundle.js">
+    <style>
+        body{
+            background: url("../images/3607424.jpg");
+            background-size: cover;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            
+        }
+        .page-align {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 90vh;
+        }
+
+        .search-box {
+            padding: 0px 30px;
+        }
+
+        .images {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .search-result img {
+            width: 80px;
+            height: 80px;
+        }
+
+        #showMore img {
+            width: 40px;
+            height: 40px;
+            margin-top: 70px;
+        }
+    </style>
+    <script>
+        function btnClick() {
+
+            var input_text = document.querySelector(".form-control").value;
+            console.log(input_text);
+            var API_key = "dadabef8868445092ff8703dcba9ead1";
+            var city_name = input_text;
+            fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city_name}&appid=${API_key}`)
+                .then(function (response) { return response.json() })
+                .then(function (data) {
+                    var description="";
+                    var current=""
+                    for(var it of data.weather)
+                    {
+                        description=it.description;
+                        current=it.main;
+                    }
+                    if (data.cod == "404") {
+                        var align_this = document.getElementById("align-this");
+                        document.getElementById("centerContent").innerHTML="";
+                        document.getElementById("showMore").innerHTML = "";
+                        align_this.style.width = "400px";
+                        align_this.style.height = "130px";
+                        align_this.style.background = "linear-gradient(to bottom left, #92fe9d 0%, #00c9ff 100%)";
+                        align_this.style.borderRadius = "10px";
+                        document.getElementById("msg").style.color = "red";
+                        document.getElementById("msg").style.marginLeft = "35px";
+                        document.getElementById("msg").innerHTML = "Please enter valid city name!<br> city not available...."
+                    }
+                    else {
+                        document.getElementById("msg").innerHTML = ""
+                        var align_this = document.getElementById("align-this");
+                        align_this.style.width = "400px";
+                        align_this.style.height = "500px";
+                        align_this.style.background = "linear-gradient(to bottom left, #92fe9d 0%, #00c9ff 100%)";
+                        align_this.style.borderRadius = "10px";
+                        var temp = data.main.temp;
+                        temp = temp - 273.15;
+                        temp = Math.round(temp)
+                        console.log(temp);
+                        var city_name = data.name;
+                        console.log(city_name);
+                        var wind = data.wind.speed * 3.6;
+                        wind = wind.toFixed(2);
+                        var humidity = data.main.humidity + "%";
+                        console.log(humidity);
+                        console.log(wind);
+                        var date=new Date;
+                        if (temp >= 28 && current!="Rain") {
+                            // <img src="../images/cloudy.png" id="img-weather-1">
+                            // var img=document.createElement("img");
+                            var img = document.getElementById("centerContent");
+                            img.innerHTML = `
+                    <img src="../images/cloudy.png" id="img-weather-1">
+                    <h1 id="temperature">${temp}°C</h1>
+                <h4 id="cityName">${description}</h4>
+                    `
+                        }
+                        else if (temp<28 && current!="Rain" ) {
+                            // <img src="../images/cloudy.png" id="img-weather-1">
+                            // var img=document.createElement("img");
+                            var img = document.getElementById("centerContent");
+                            img.innerHTML = `
+                    <img src="../images/temperature.png" id="img-weather-1">
+                    <h1 id="temperature">${temp}°C</h1>
+                <h4 id="cityName">${description}</h4>
+                    `
+                        }
+                        else if (temp>40 && current!="Rain") {
+                            // <img src="../images/cloudy.png" id="img-weather-1">
+                            // var img=document.createElement("img");
+                            var img = document.getElementById("centerContent");
+                            img.innerHTML = `
+                    <img src="../images/hot.png" id="img-weather-1">
+                    <h1 id="temperature">${temp}°C</h1>
+                <h4 id="cityName">${description}</h4>
+                    `
+                        }
+                        else if (current=="Rain") {
+                            // <img src="../images/cloudy.png" id="img-weather-1">
+                            // var img=document.createElement("img");
+                            var img = document.getElementById("centerContent");
+                            img.innerHTML = `
+                    <img src="../images/rainy-day.png" id="img-weather-1">
+                    <h1 id="temperature">${temp}°C</h1>
+                <h4 id="cityName">${description}</h4>
+                    `
+                        }
+                        document.getElementById("showMore").innerHTML = `
+                <div>
+                <img src="../images/humidity.png" id="" alt="">
+                <h6 id="humidity">${humidity}<br>Humidity</h6>
+                </div>
+                <div>
+                <img src="../images/wind.png" id="" alt="">
+                <h6 id="windSpeed">${wind}km/h<br>Wind Speed</h6>
+                </div>
+                `
+                    }
+                }
+                )
+            // setTimeout(btnClick,10000);
+        }
+
+        function bodyload() {
+            var align_this = document.getElementById("align-this");
+            align_this.style.width = "400px";
+            align_this.style.height = "100px";
+            align_this.style.background = "linear-gradient(to bottom left, #92fe9d 0%, #00c9ff 100%)";
+            align_this.style.borderRadius = "10px";
+        }
+
+    </script>
+</head>
+
+<body class="container-fluid" onload="bodyload()">
+    <div class="page-align">
+        <div id="align-this">
+            <div class="search-box input-group mt-4">
+                <i class="bi bi-geo-alt-fill input-group-text"></i><input type="text" placeholder="Enter City Name" autofocus required
+                    class="form-control text-box-size">
+                <button class="btn btn-danger" onclick="btnClick()"><i
+                        class="bi bi-search"></i></button>
+            </div>
+            <h6 id="msg" class="mt-2"></h6>
+            <div class="search-result">
+                <!-- dadabef8868445092ff8703dcba9ead1 -->
+                <div class="images" id="centerContent">
+                    <!-- <img src="../images/hot.png" id="img-weather-2" alt="">
+                <img src="../images/temperature.png" id="img-weather-3" alt="">
+                <img src="../images/rainy-day.png" id="img-weather-4" alt=""> -->
+                </div>
+                <div class="d-flex justify-content-around" id="showMore">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+</html>
