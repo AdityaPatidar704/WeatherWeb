@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather Web</title>
     <link rel="shortcut icon" href="../images/cloudy.ico">
-    <link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
-    <link rel="stylesheet" href="../node_modules/bootstrap/dist/js/bootstrap.bundle.js">
+    <link rel="stylesheet" href="./node_modules/bootstrap-icons/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/js/bootstrap.bundle.js">
     <style>
         body{
-            background: url("../images/3607424.jpg");
+            background: url("./images/3607424.jpg");
             background-size: cover;
             background-attachment: fixed;
             background-repeat: no-repeat;
@@ -97,7 +97,7 @@
                             // var img=document.createElement("img");
                             var img = document.getElementById("centerContent");
                             img.innerHTML = `
-                    <img src="../images/cloudy.png" id="img-weather-1">
+                    <img src="./images/cloudy.png" id="img-weather-1">
                     <h1 id="temperature">${temp}°C</h1>
                 <h4 id="cityName">${description}</h4>
                     `
@@ -107,7 +107,7 @@
                             // var img=document.createElement("img");
                             var img = document.getElementById("centerContent");
                             img.innerHTML = `
-                    <img src="../images/temperature.png" id="img-weather-1">
+                    <img src="./images/temperature.png" id="img-weather-1">
                     <h1 id="temperature">${temp}°C</h1>
                 <h4 id="cityName">${description}</h4>
                     `
@@ -117,7 +117,7 @@
                             // var img=document.createElement("img");
                             var img = document.getElementById("centerContent");
                             img.innerHTML = `
-                    <img src="../images/hot.png" id="img-weather-1">
+                    <img src="./images/hot.png" id="img-weather-1">
                     <h1 id="temperature">${temp}°C</h1>
                 <h4 id="cityName">${description}</h4>
                     `
@@ -127,18 +127,18 @@
                             // var img=document.createElement("img");
                             var img = document.getElementById("centerContent");
                             img.innerHTML = `
-                    <img src="../images/rainy-day.png" id="img-weather-1">
+                    <img src="./images/rainy-day.png" id="img-weather-1">
                     <h1 id="temperature">${temp}°C</h1>
                 <h4 id="cityName">${description}</h4>
                     `
                         }
                         document.getElementById("showMore").innerHTML = `
                 <div>
-                <img src="../images/humidity.png" id="" alt="">
+                <img src="./images/humidity.png" id="" alt="">
                 <h6 id="humidity">${humidity}<br>Humidity</h6>
                 </div>
                 <div>
-                <img src="../images/wind.png" id="" alt="">
+                <img src="./images/wind.png" id="" alt="">
                 <h6 id="windSpeed">${wind}km/h<br>Wind Speed</h6>
                 </div>
                 `
